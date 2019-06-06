@@ -18,13 +18,13 @@ function randomInteger(min, max) {
 }
 
 // error checking for user input, don't allow anything but N or Y
-// async function guessCheck(response) {
-//   while (response.toUpperCase() !== 'N' && response.toUpperCase() !== 'Y') {
-//     console.log(`That's not an answer! Tell me Y or N`);
-//     response = await ask(`Is it... ${currGuess}? `);
-//   }
-//   return response;
-// }
+async function guessCheck(yesOrNo, currGuess) {
+  while (yesOrNo.toUpperCase() !== 'N' && yesOrNo.toUpperCase() !== 'Y') {
+    console.log(`That's not an answer! Tell me Y or N`);
+    yesOrNo = await ask(`Is it... ${currGuess}? `);
+  }
+  return yesOrNo;
+}
 
 // function holding the game logic
 async function guessingGame() {
@@ -51,14 +51,14 @@ I will try to guess it.`);
 
   // ask if the computer guess is the player's number
   yesOrNo = await ask(`Is it... ${currGuess}? `);
-  console.log(`yesOrNo: ${yesOrNo}`);
+  //console.log(`yesOrNo: ${yesOrNo}`);
 
   // validate user response
-  //yesOrNo = guessCheck(yesOrNo);
-  while (yesOrNo.toUpperCase() !== 'N' && yesOrNo.toUpperCase() !== 'Y') {
-    console.log(`That's not an answer! Tell me Y or N`);
-    yesOrNo = await ask(`Is it... ${currGuess}? `);
-  }
+  yesOrNo = await guessCheck(yesOrNo, currGuess);
+  // while (yesOrNo.toUpperCase() !== 'N' && yesOrNo.toUpperCase() !== 'Y') {
+  //   console.log(`That's not an answer! Tell me Y or N`);
+  //   yesOrNo = await ask(`Is it... ${currGuess}? `);
+  // }
   
   // need to loop through if statement so long as yesOrNo == 'N'
   while (yesOrNo.toUpperCase() == 'N') {
@@ -82,13 +82,13 @@ I will try to guess it.`);
     guessCount++;
 
     // ask player about currGuess
-    yesOrNo = await ask(`Is it... ${currGuess}? `);
+    yesOrNo = await guessCheck(await ask(`Is it... ${currGuess}? `), currGuess);
 
-    // yesOrNo = guessCheck(yesOrNo);
-    while (yesOrNo.toUpperCase() !== 'N' && yesOrNo.toUpperCase() !== 'Y') {
-      console.log(`That's not an answer! Tell me Y or N`);
-      yesOrNo = await ask(`Is it... ${currGuess}? `);
-    }
+    // yesOrNo = await guessCheck(yesOrNo, currGuess);
+    // while (yesOrNo.toUpperCase() !== 'N' && yesOrNo.toUpperCase() !== 'Y') {
+    //   console.log(`That's not an answer! Tell me Y or N`);
+    //   yesOrNo = await ask(`Is it... ${currGuess}? `);
+    // }
     
   }
 
