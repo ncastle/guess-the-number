@@ -1,3 +1,11 @@
+/**
+ *  Week 1 BCA project:
+ *    Guessing game that is played with the computer
+ *    implemented as a command line application
+ *  Author: Nick Castle
+ *  Start Date: 06/05/2019 
+ */
+
 // boilerplate code for readline library
 const readline = require('readline');
 const readlineInterface = readline.createInterface(process.stdin, process.stdout);
@@ -7,9 +15,9 @@ function ask(questionText) {
     readlineInterface.question(questionText, resolve);
   });
 }
+// end readline setup
 
-//start guessing game
-guessingGame();
+/****  FUNCTIONS  ****/
 
 // function to get a random integer in a range from min to max (inclusive)
 function randomInteger(min, max) {
@@ -31,6 +39,7 @@ async function guessingGame() {
 
   // variables/constants
   let MAX = 100;
+  if (process.argv[2] !== null) MAX = process.argv[2];  // get max number from argv    
   let MIN = 1;
   let currHigh = MAX;
   let currLow = MIN;
@@ -39,9 +48,11 @@ async function guessingGame() {
   let guessRange;
   let highOrLow;    // holds the answer of higher or lower
   let yesOrNo;      // holds the answer of if the guess is right or wrong
+  
+  console.log(`Max: ${MAX}`);
 
   // console.log introductory message
-  console.log(`Please think of a number between 1 and 100 (inclusive).
+  console.log(`Please think of a number between 1 and ${process.argv[2]} (inclusive).
 I will try to guess it.`);
 
   // get a random number for the computer's guess with Math.random()
@@ -99,3 +110,6 @@ I will try to guess it.`);
   // exit the game
   process.exit();
 }
+
+//start guessing game
+guessingGame();
